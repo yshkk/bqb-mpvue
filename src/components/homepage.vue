@@ -4,14 +4,14 @@
       <img :src="bannerImg" class="banner"/>
       <div class="query-area">
         <div class="input-area">
-        <i-input :value="query" @change="updateQuery" @blur="search" placeholder="搜索表情包" mode="wrapped" maxlength="-1" class='query-input'/>
+        <i-input :value="query" @change="updateQuery" placeholder="搜索表情包" mode="wrapped" maxlength="-1" class='query-input'/>
         <!-- mpvue里用v-show会有问题，所以只能v-if  https://github.com/Meituan-Dianping/mpvue/issues/178 -->
         <i-icon type="delete_fill" size="25" @click="deleteQuery" class="delete-query-btn" v-if="query!==''"/>
         </div>
         <i-button @click="search" type="primary" size="large" class='search-btn'>搜索</i-button>
       </div>
       <view class="page-component">
-        <i-page :current="current" :total="total" @change="handleChangePage" mode="number"  />
+        <i-page :current="current" :total="total" mode="number"  />
       </view>
       <div class="result-area" @touchstart="touchStart" @touchmove="touchMove">
           <i-spin size="large" fix v-if="spinShow"></i-spin>
@@ -153,14 +153,6 @@ export default {
           this.spinShow = false
         })
     },
-    handleChangePage ({detail}) {
-      const type = detail.type
-      if (type === 'next') {
-        this.current++
-      } else if (type === 'prev') {
-        this.current--
-      }
-    },
     touchStart (e) {
       this.startTouchPosition = e.clientX
     },
@@ -175,7 +167,7 @@ export default {
         }
       } else if (this.startTouchPosition - e.clientX > 80) {
         // console.info('右滑')
-        if ((this.current - 1) * 20 < this.count) {
+        if (this.current * 20 < this.count) {
           this.current++
           this.getPics()
           this.startTouchPosition = null

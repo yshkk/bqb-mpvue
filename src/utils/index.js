@@ -17,8 +17,25 @@ export function formatTime (date) {
 
   return `${t1} ${t2}`
 }
+var lastFrameTime = 0
+// 模拟 requestAnimationFrame   copied from https://www.dennic365.com/blog/?p=87
+export function doAnimationFrame (fn) {
+  var currTime = new Date().getTime()
+  var timeToCall = Math.max(0, 16 - (currTime - lastFrameTime))
+  var id = setTimeout(function () {
+    fn(currTime + timeToCall)
+  }, timeToCall)
+  lastFrameTime = currTime + timeToCall
+  return id
+}
+// 模拟 cancelAnimationFrame
+export function abortAnimationFrame (id) {
+  clearTimeout(id)
+}
 
 export default {
   formatNumber,
-  formatTime
+  formatTime,
+  doAnimationFrame,
+  abortAnimationFrame
 }
