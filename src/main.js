@@ -14,9 +14,9 @@ export default {
     pages: ['^pages/index/main', 'pages/maker/main'],
     window: {
       backgroundTextStyle: 'light',
-      navigationBarBackgroundColor: '#fff',
-      navigationBarTitleText: 'WeChat',
-      navigationBarTextStyle: 'black'
+      navigationBarBackgroundColor: '#2d8cf0',
+      navigationBarTitleText: '熊猫斗图助手',
+      navigationBarTextStyle: 'light'
     }
   }
 }

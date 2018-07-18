@@ -72,6 +72,7 @@ export default {
     },
     updateCanvas () {
       ctx.drawImage(this.path, 0, 0, 300, 300)
+      ctx.setTextAlign('center') // 必须每次在updateCanvas重新设置，否则模拟器上生效但真机下不会生效
       ctx.setFontSize(this.fontSize)
       ctx.setFillStyle(this.currentColor)
       ctx.fillText(this.txt, this.x, this.y)
@@ -99,7 +100,6 @@ export default {
       success: (res) => {
         console.log(res)
         this.path = res.path
-        ctx.setTextAlign('center')
         this.updateCanvas()
       }
     })
@@ -108,6 +108,9 @@ export default {
 </script>
 
 <style>
+.maker-container{
+  margin-top: 30rpx;
+}
 .maker{
   /* width: 300px; */
   /* height: 300px; */

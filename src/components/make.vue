@@ -7,7 +7,7 @@
         <!-- mpvue里用v-show会有问题，所以只能v-if  https://github.com/Meituan-Dianping/mpvue/issues/178 -->
         <i-icon type="delete_fill" size="25" @click="deleteQuery" class="delete-query-btn" v-if="query!==''"/>
         </div>
-        <i-button @click="search" type="primary" size="large" class='search-btn'>搜索</i-button>
+        <i-button @click="search" type="primary" class='search-btn'>搜索模版</i-button>
       </div>
       <view class="page-component">
         <i-page :current="current" :total="total" mode="number"  />

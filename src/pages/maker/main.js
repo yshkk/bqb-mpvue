@@ -5,7 +5,6 @@ const app = new Vue(App)
 app.$mount()
 export default {
   config: {
-    'navigationBarTitleText': '熊猫斗图',
     'usingComponents': {
       'i-button': '../../static/iview/button/index',
       'i-input': '../../static/iview/input/index',

@@ -1,14 +1,14 @@
 <template>
   <div class="wrapper">
     <div class="content-area">
-      <img :src="bannerImg" class="banner"/>
+      <img src="../../static/assets/banner.png" class="banner"/>
       <div class="query-area">
         <div class="input-area">
         <i-input :value="query" @change="updateQuery" placeholder="搜索表情包" mode="wrapped" maxlength="-1" class='query-input'/>
         <!-- mpvue里用v-show会有问题，所以只能v-if  https://github.com/Meituan-Dianping/mpvue/issues/178 -->
         <i-icon type="delete_fill" size="25" @click="deleteQuery" class="delete-query-btn" v-if="query!==''"/>
         </div>
-        <i-button @click="search" type="primary" size="large" class='search-btn'>搜索</i-button>
+        <i-button @click="search" type="primary" class='search-btn'>搜索</i-button>
       </div>
       <view class="page-component">
         <i-page :current="current" :total="total" mode="number"  />
@@ -29,13 +29,11 @@
 
 <script>
 import Fly from 'flyio/dist/npm/wx'
-import bannerImg from '../../static/assets/banner.png'
 var fly = new Fly()
 const {$Message} = require('../../static/iview/base/index')
 export default {
   data () {
     return {
-      bannerImg,
       query: '熊猫',
       imageList: [],
       actions: [{ name: '分享' }, { name: '收藏' }],
@@ -92,6 +90,7 @@ export default {
     },
     longpressImage (e) {
       const selectedUrl = e.target.dataset.url
+      console.log(selectedUrl)
       const selectedUrlIndex = this.favoriteList.findIndex(item => item === selectedUrl)
       // 如果存在selectedUrlIndex 则将选中url删除（清除收藏）；不存在则将其加入数组（增加收藏）
       if (selectedUrlIndex > -1) {
@@ -182,6 +181,10 @@ export default {
 </script>
 
 <style>
+.banner{
+  width: 100%;
+  height:250rpx;
+}
 .content-area {
   background-color: #f8f8f9;
   height: calc(100vh - 100rpx);
@@ -190,6 +193,7 @@ export default {
 .query-area {
   display: flex;
   position: relative;
+  padding:20rpx;
 }
 .input-area{
   position: relative;
@@ -198,18 +202,20 @@ export default {
 .query-input {
   width: 100%;
 }
+.query-input view{
+  margin: 0;
+  padding:4px 20px;
+}
 .delete-query-btn{
   position: absolute;
-  right:40rpx;
-top:50%;
-opacity:.5;
-z-index:2;
-transform:translateY(-50%);
-
+  right:20rpx;
+  top:50%;
+  opacity:.5;
+  z-index:2;
+  transform:translateY(-50%);
 }
-.search-btn {
-  margin-left: -40rpx;
-  margin-top: -2rpx;
+.search-btn{
+  margin-left: 20rpx;
 }
 .info-text{
   text-align: center;
