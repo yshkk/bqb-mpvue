@@ -15,7 +15,7 @@
       </view>
       <div class="result-area" @touchstart="touchStart" @touchmove="touchMove">
           <i-spin size="large" fix v-if="spinShow"></i-spin>
-          <!-- todo 这里image-favorite一直绑定不上去 不知什么情况 -->
+          <!-- 模板的数据绑定里面,没办法在模板语法里面调用methods方法 (或者说没办法调用computed以外的函数)，所以只能曲线救国 https://github.com/noahlam/articles/blob/master/%E7%BE%8E%E5%9B%A2%E5%B0%8F%E7%A8%8B%E5%BA%8F%E6%A1%86%E6%9E%B6mpvue%E8%B9%B2%E5%9D%91%E6%8C%87%E5%8D%97.md-->
           <image v-for="img in imageListWithFavorite" :src="img.url" :data-url="img.url" :alt="img.desc" :class="img.isFavorite?'image image-favorite':'image'" @click="clickImage" @longpress="longpressImage" :key="img.origin" />
           <!-- 占位符 https://stackoverflow.com/questions/16377972/how-to-align-left-last-row-line-in-multiple-line-flexbox -->
           <image class="hidden" key="hidden-image-1"/>
