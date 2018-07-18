@@ -4,7 +4,7 @@
 > 组件库使用 [iview-weapp](https://github.com/TalkingData/iview-weapp)
 
 ## 截图
-![](http://wx2.sinaimg.cn/large/005zWjpngy1fte2h78h3pg30lg10qx6q.gif)
+![](/screen.gif)
 ## 扫码体验
 ![](http://y.photo.qq.com/img?s=jDVe2bxHb&l=y.jpg)
 ## Setup
