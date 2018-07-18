@@ -1,8 +1,11 @@
-# mpvue-bqb
+# bqb-mpvue
 
-> A Mpvue project
+> 基于mpvue的表情包斗图微信小程序
 
-## Build Setup
+## 截图
+
+
+## Setup
 
 ``` bash
 # install dependencies
@@ -17,5 +20,3 @@ npm run build
 # build for production and view the bundle analyzer report
 npm run build --report
 ```
-
-For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
