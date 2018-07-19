@@ -80,7 +80,7 @@ export default {
           'https://leancloud.cn/1.1/classes/template',
           {
             where: { desc: { $regex: `\\Q${this.query}\\E` } },
-            limit: 18,
+            limit: 12,
             skip: (this.current - 1) * 20,
             order: '-updatedAt',
             count: 1

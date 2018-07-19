@@ -65,7 +65,7 @@ export default {
       // })
       wx.previewImage({
         current: 'https://wx2.sinaimg.cn/large/005zWjpngy1ftd5jn7gitj311s11s1al.jpg',
-        urls: this.favoriteList
+        urls: ['https://wx2.sinaimg.cn/large/005zWjpngy1ftd5jn7gitj311s11s1al.jpg']
       })
     }
   }
@@ -75,8 +75,11 @@ export default {
 <style scoped>
   .empty-favorite{
       color: #bbbec4;
-      margin:300rpx auto;
       text-align: center;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%,-50%)
   }
   .zan{
     height:250rpx;

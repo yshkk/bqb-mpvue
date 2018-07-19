@@ -277,7 +277,7 @@ export default {
   bottom: 0;
   left: 0;
   color: #ffa39e;
-  opacity: 0.3;
+  opacity: 0.5;
 }
 .image-icon{
   position: absolute;
