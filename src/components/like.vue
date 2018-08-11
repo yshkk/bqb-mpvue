@@ -12,8 +12,8 @@
     </i-panel>
     <i-panel title="联系作者">
       <div class="contact-txt">小程序所有表情包来自互联网，如若有侵权之处请联系作者进行删除。</div>
-      <div class="contact-txt"><i-icon type="mail" /> yangshuang220@gmail.com</div>
-      <image src='../../static/assets/zan.png' class="zan" @click="zan"/>
+      <div class="contact-txt contact-email-txt"><i-icon type="mail" /> yangshuang220@gmail.com</div>
+      <div class="contact-txt"><i-button @click="zan" type="primary" class='zan-btn' shape="circle" inline="true">赞赏作者<i-icon type="praise" /></i-button></div>
     </i-panel>
       <i-modal title="删除收藏" :visible="showConfirm"  @ok="confirm" @cancel="cancel">
         <view>确认删除该收藏的表情？</view>
@@ -59,14 +59,14 @@ export default {
       this.selectedUrlIndex = this.favoriteList.findIndex(item => item === selectedUrl)
     },
     zan () {
-      // wx.navigateToMiniProgram({
-      //   appId: '',
-      //   path: 'pages/apps/largess/detail?id=0Jx2B0GFjYs%3D'
-      // })
-      wx.previewImage({
-        current: 'https://wx2.sinaimg.cn/large/005zWjpngy1ftd5jn7gitj311s11s1al.jpg',
-        urls: ['https://wx2.sinaimg.cn/large/005zWjpngy1ftd5jn7gitj311s11s1al.jpg']
+      wx.navigateToMiniProgram({
+        appId: 'wx18a2ac992306a5a4',
+        path: 'pages/apps/largess/detail?id=0Jx2B0GFjYs%3D'
       })
+      // wx.previewImage({
+      //   current: 'https://wx2.sinaimg.cn/large/005zWjpngy1ftd5jn7gitj311s11s1al.jpg',
+      //   urls: ['https://wx2.sinaimg.cn/large/005zWjpngy1ftd5jn7gitj311s11s1al.jpg']
+      // })
     }
   }
 }
@@ -88,10 +88,17 @@ export default {
     margin: 0 auto;
     display: block;
   }
+  .zan-btn{
+    margin: 0 auto;
+  }
   .contact-txt{
     color:#80848f;
     font-size:20rpx;
-    margin:30rpx 20rpx;
+    margin:30rpx;
     text-align:center;
+  }
+  .contact-txt.contact-email-txt{
+    margin:-16rpx 0 10rpx;
+
   }
 </style>

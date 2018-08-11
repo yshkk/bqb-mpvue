@@ -2,17 +2,23 @@
   <div class="maker-container">
     <canvas canvas-id="maker" class="maker" style="width: 300px; height: 300px;" @touchstart="touchstart" @touchmove="touchmove" @touchend="touchend"/>
     <div class="maker-area">
-      <span class="tips">可拖动文字进行位移</span>
-      <i-input :value="txt" @change="changeTxt" placeholder="输入文字"  maxlength="-1" class="input"/>
+      <i-tabs :current="selectedIndex" @change="changeSelectedIndex">
+        <i-tab v-for="(item,index) in userText" :key="index" :title="'文本'+(index+1)"></i-tab>
+      </i-tabs>
+      <i-input :value="userText[selectedIndex].txt" @change="changeTxt" placeholder="输入文字"  maxlength="-1" class="input"/>
+      <i-divider content="可拖动文字进行位移" height="32" class="divider-txt"></i-divider>
       <div class="setting">
-       <span class="label">颜色</span>
-       <color-selector @changeColor="changeColor" :currentColor="currentColor"/>
+        <span class="label">颜色</span>
+        <color-selector @changeColor="changeColor" :currentColor="userText[selectedIndex].currentColor"/>
       </div>
       <div class="setting">
         <span class="label">字号</span>
-        <i-input-number min="10" max="50" :value="fontSize" @change="changeFontsize" class="input-number"/>
+        <i-input-number min="10" max="50" :value="userText[selectedIndex].fontSize" @change="changeFontsize" class="input-number"/>
       </div>
-      <i-button @click="doMake" type="primary" class="button">生成表情</i-button>
+      <div class="btn-area">
+        <i-button open-type="share" type="ghost" class="button share-button">分享模版</i-button>
+        <i-button @click="doMake" type="primary" class="button">生成表情</i-button>
+      </div>
     </div>
   </div>
 </template>
@@ -21,88 +27,113 @@
 import colorSelector from '../../components/color-selector'
 import {doAnimationFrame, abortAnimationFrame} from '../../utils'
 let ctx
+const initText = [{
+  txt: '输入文字',
+  currentColor: '#000',
+  fontSize: 20,
+  x: 150,
+  y: 270
+}, {
+  txt: '',
+  currentColor: '#000',
+  fontSize: 20,
+  x: 150,
+  y: 270
+}, {
+  txt: '',
+  currentColor: '#000',
+  fontSize: 20,
+  x: 150,
+  y: 270
+}]
 export default {
   components: {
     'color-selector': colorSelector
   },
   data () {
     return {
-      txt: '输入文字',
-      currentColor: '#000',
-      fontSize: 20,
-      x: 150,
-      y: 270,
+      userText: initText.map(item => ({...item})),
+      selectedIndex: 0, // 当前操作的文本index
       path: ''// 加载下来的模版的temp path，要想在canvas里面绘制img，必须加载到本地，不能直接引用远程地址
     }
   },
-  computed: {
-    count () {
-      return 0
-    }
-  },
   watch: {
-    txt: function (val) {
-      this.updateCanvas()
+    userText: {
+      handler: function () {
+        this.updateCanvas()
+      },
+      deep: true
     }
   },
   methods: {
     touchstart (e) {
-      this.x = e.x
-      this.y = e.y
+      this.userText[this.selectedIndex].x = e.x
+      this.userText[this.selectedIndex].y = e.y
       this.updateCanvas()
     },
     touchmove (e) {
-      this.x = e.x
-      this.y = e.y
+      this.userText[this.selectedIndex].x = e.x
+      this.userText[this.selectedIndex].y = e.y
       doAnimationFrame(this.updateCanvas) // touch move的时候节流一下 可能性能会好些（心理作用😂 ）
     },
     touchend (e) {
       abortAnimationFrame()
     },
     changeTxt ({mp}) {
-      this.txt = mp.detail.detail.value
+      this.userText[this.selectedIndex]['txt'] = mp.detail.detail.value
     },
     changeColor (color) {
-      this.currentColor = color
-      this.updateCanvas()
+      this.userText[this.selectedIndex]['currentColor'] = color
     },
     changeFontsize ({mp}) {
-      this.fontSize = mp.detail.value
-      this.updateCanvas()
+      this.userText[this.selectedIndex]['fontSize'] = mp.detail.value
+    },
+    changeSelectedIndex ({mp}) {
+      this.selectedIndex = mp.detail.key
     },
     updateCanvas () {
       ctx.drawImage(this.path, 0, 0, 300, 300)
       ctx.setTextAlign('center') // 必须每次在updateCanvas重新设置，否则模拟器上生效但真机下不会生效
-      ctx.setFontSize(this.fontSize)
-      ctx.setFillStyle(this.currentColor)
-      ctx.fillText(this.txt, this.x, this.y)
+      this.userText.forEach(item => {
+        ctx.font = `bold ${item.fontSize}px/${item.fontSize}px sans-serif`
+        ctx.setFillStyle(item.currentColor)
+        ctx.fillText(item.txt, item.x, item.y)
+      })
       ctx.draw()
     },
     doMake () {
       wx.canvasToTempFilePath({
         canvasId: 'maker',
         success: function (res) {
-          console.log(res.tempFilePath)
           wx.previewImage({
             current: res.tempFilePath,
             urls: [res.tempFilePath]
           })
         }
       })
+    },
+    share () {
+
     }
   },
   onLoad () {
     ctx = wx.createCanvasContext('maker')
     const imageResource = this.$root.$mp.query.url
-    console.log(imageResource)
     wx.getImageInfo({
       src: imageResource,
       success: (res) => {
-        console.log(res)
+        // 重置文本
+        this.userText = initText.map(item => ({...item}))
+        this.selectedIndex = 0
         this.path = res.path
-        this.updateCanvas()
       }
     })
+  },
+  onShareAppMessage () {
+    return {
+      title: `表情制作 - 熊猫斗图助手`,
+      path: `/pages/index/main?url=${this.$root.$mp.query.url}`
+    }
   }
 }
 </script>
@@ -120,9 +151,7 @@ export default {
 }
 .maker-area{
   width: 300px;
-  margin: 40rpx auto 0 ;
-  padding: 30rpx 0;
-  border-top: 1px solid #e9eaec;
+  margin: 0 auto;
   position: relative;
 }
 
@@ -140,17 +169,23 @@ export default {
 .input-number{
   display: inline-block;
 }
+.btn-area{
+  display: flex;
+  justify-content: space-between;
+}
+.button{
+  flex: 1;
+}
+.divider-txt{
+  top:-10rpx;
+  position:relative;
+
+}
+.share-button{
+  margin-right: 20rpx;
+}
 .button button{
   margin: 0;
-}
-.tips{
-  color:#80848f;
-  font-size: 10px;
-  position:absolute;
-  top:-14rpx;
-  left:50%;
-  transform:translateX(-50%);
-  background: #fff;
 }
 .setting{
   display: flex;

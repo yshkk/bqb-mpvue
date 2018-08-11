@@ -16,7 +16,7 @@
       <div class="result-area" @touchstart="touchStart" @touchmove="touchMove">
           <i-spin size="large" fix v-if="spinShow"></i-spin>
           <!-- 模板的数据绑定里面,没办法在模板语法里面调用methods方法 (或者说没办法调用computed以外的函数)，所以只能曲线救国 https://github.com/noahlam/articles/blob/master/%E7%BE%8E%E5%9B%A2%E5%B0%8F%E7%A8%8B%E5%BA%8F%E6%A1%86%E6%9E%B6mpvue%E8%B9%B2%E5%9D%91%E6%8C%87%E5%8D%97.md-->
-          <image v-for="img in imageListWithFavorite" :src="img.url" :data-url="img.url" :alt="img.desc" :class="img.isFavorite?'image image-favorite':'image'" @click="clickImage" @longpress="longpressImage" :key="img.origin" />
+          <image v-for="img in imageListWithFavorite" :src="img.url" :data-url="img.url" :alt="img.desc" :class="img.isFavorite?'image image-favorite':'image'" @tap="clickImage" @longpress="longpressImage" :key="img.origin" />
           <!-- 占位符 https://stackoverflow.com/questions/16377972/how-to-align-left-last-row-line-in-multiple-line-flexbox -->
           <image class="hidden" key="hidden-image-1"/>
           <image class="hidden" key="hidden-image-2"/>
@@ -132,8 +132,8 @@ export default {
           },
           {
             headers: {
-              'X-LC-Id': '6wgcT04xxbLvwUHQPQcUhY5k-gzGzoHsz',
-              'X-LC-Key': 't9RqvSNXPvF94vr002Y171hH'
+              'X-LC-Id': 'fgRtP5u0BmznRY36lHCEPquL-gzGzoHsz',
+              'X-LC-Key': 'tAEeCDEKV46YALkSQIkQW239'
             }
           }
         )

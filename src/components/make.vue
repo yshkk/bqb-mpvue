@@ -1,9 +1,10 @@
 <template>
   <div class="wrapper">
     <div class="content-area">
+      <img src="../../static/assets/banner2.png" class="banner"/>
       <div class="query-area">
         <div class="input-area">
-        <i-input :value="query" @change="updateQuery" placeholder="模版不是很多，别搜了" mode="wrapped" maxlength="-1" class='query-input'/>
+        <i-input :value="query" @change="updateQuery" placeholder="搜索模版" mode="wrapped" maxlength="-1" class='query-input'/>
         <!-- mpvue里用v-show会有问题，所以只能v-if  https://github.com/Meituan-Dianping/mpvue/issues/178 -->
         <i-icon type="delete_fill" size="25" @click="deleteQuery" class="delete-query-btn" v-if="query!==''"/>
         </div>
@@ -15,7 +16,7 @@
       <div class="result-area" @touchstart="touchStart" @touchmove="touchMove">
           <i-spin size="large" fix v-if="spinShow"></i-spin>
           <!-- todo 这里image-favorite一直绑定不上去 不知什么情况 -->
-          <image v-for="img in templateList" :src="img.url" :data-url="img.url" :alt="img.desc" class="image" @click="clickImage" :key="img.url" />
+          <image v-for="img in templateList" :src="img.url" :data-url="img.url" :alt="img.desc" class="image" @tap="clickImage" :key="img.url" />
           <!-- 占位符 https://stackoverflow.com/questions/16377972/how-to-align-left-last-row-line-in-multiple-line-flexbox -->
           <image class="hidden" key="hidden-image-1"/>
           <image class="hidden" key="hidden-image-2"/>

@@ -17,7 +17,10 @@ export default {
       'i-spin': '../../static/iview/spin/index',
       'i-page': '../../static/iview/page/index',
       'i-modal': '../../static/iview/modal/index',
-      'i-input-number': '../../static/iview/input-number/index'
+      'i-input-number': '../../static/iview/input-number/index',
+      'i-tabs': '../../static/iview/tabs/index',
+      'i-tab': '../../static/iview/tab/index',
+      'i-divider': '../../static/iview/divider/index'
     }
   }
 }

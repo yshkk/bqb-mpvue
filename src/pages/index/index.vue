@@ -38,7 +38,22 @@ export default {
     handleChange ({ mp }) {
       this.current = mp.detail.key
     }
+  },
+  onShareAppMessage () {
+    return {
+      title: `熊猫斗图助手`,
+      path: `/pages/index/main`
+    }
+  },
+  onLoad (options) {
+    console.log(options)
+    if (options.url) {
+      wx.navigateTo({
+        url: '/pages/maker/main?url=' + options.url
+      })
+    }
   }
+
 }
 </script>
 
