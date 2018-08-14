@@ -54,10 +54,10 @@ export default {
     touchmove (e) {
       this.x = e.x
       this.y = e.y
-      doAnimationFrame(this.updateCanvas) // touch move的时候节流一下 可能性能会好些（心理作用😂 ）
+      this.animationId = doAnimationFrame(this.updateCanvas) // touch move的时候节流一下 可能性能会好些（心理作用😂 ）
     },
     touchend (e) {
-      abortAnimationFrame()
+      abortAnimationFrame(this.animationId)
     },
     changeTxt ({mp}) {
       this.txt = mp.detail.detail.value
