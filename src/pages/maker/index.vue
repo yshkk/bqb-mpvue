@@ -13,7 +13,8 @@
       </div>
       <div class="setting">
         <span class="label">字号</span>
-        <i-input-number min="10" max="50" :value="userText[selectedIndex].fontSize" @change="changeFontsize" class="input-number"/>
+        <slider activeColor="#2d8cf0" min="10" max="50" :value="userText[selectedIndex].fontSize" @changing="changeFontsize"@change="changeFontsize" class="input-number"/>
+        <!-- <i-input-number min="10" max="50" :value="userText[selectedIndex].fontSize" @change="changeFontsize" class="input-number"/> -->
       </div>
       <div class="btn-area">
         <i-button open-type="share" type="ghost" class="button share-button">分享模版</i-button>
@@ -168,6 +169,7 @@ export default {
 }
 .input-number{
   display: inline-block;
+  width: 100%;
 }
 .btn-area{
   display: flex;
