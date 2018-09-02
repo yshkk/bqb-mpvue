@@ -22,6 +22,9 @@
           <image class="hidden" key="hidden-image-2"/>
           <image class="hidden" key="hidden-image-3"/>
       </div>
+      <view class="ad">
+        <ad unit-id="adunit-b897ee6ac4c939d0" ></ad>
+      </view>
       <i-message id="message" />
     </div>
   </div>
@@ -31,6 +34,7 @@
 import Fly from 'flyio/dist/npm/wx'
 var fly = new Fly()
 const {$Message} = require('../../static/iview/base/index')
+
 export default {
   data () {
     return {

@@ -22,6 +22,9 @@
           <image class="hidden" key="hidden-image-2"/>
           <image class="hidden" key="hidden-image-3"/>
       </div>
+      <view class="ad">
+        <ad unit-id="adunit-b897ee6ac4c939d0" ></ad>
+      </view>
       <i-message id="message" />
     </div>
   </div>
@@ -265,7 +268,7 @@ export default {
   width: 166rpx;
   height: 166rpx;
   border: 2rpx solid #dddee1;
-  margin-top: 18rpx;
+  margin-top: 10rpx;
   position: relative;
 }
 .image.image-favorite{
@@ -291,5 +294,8 @@ export default {
 }
 .modal-image {
   width: 90%;
+}
+.ad{
+  padding: 0 20rpx;
 }
 </style>

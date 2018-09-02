@@ -1,12 +1,14 @@
 <template>
   <div class="wrapper">
     <!-- mpvue对v-show支持得不太好，这里又不太想用v-if。只能这样绕一下了 https://github.com/Meituan-Dianping/mpvue/issues/178 -->
-    <view :style="{display:current==='homepage'?'block':'none'}">
+    <!-- <view :style="{display:current==='homepage'?'block':'none'}">
       <homepage />
     </view>
     <view :style="{display:current==='make'?'block':'none'}">
       <make />
-    </view>
+    </view> -->
+    <homepage v-if="current==='homepage'"/>
+    <make v-if="current==='make'"/>
     <like v-if="current==='like'"/>
     <div>
       <!-- 点击区域有点小 不是很方便 https://github.com/TalkingData/iview-weapp/issues/5 -->
@@ -46,7 +48,6 @@ export default {
     }
   },
   onLoad (options) {
-    console.log(options)
     if (options.url) {
       wx.navigateTo({
         url: '/pages/maker/main?url=' + options.url
