@@ -38,7 +38,7 @@ const {$Message} = require('../../static/iview/base/index')
 export default {
   data () {
     return {
-      query: '熊猫',
+      query: '',
       templateList: [],
       spinShow: true,
       current: 1, // 当前页

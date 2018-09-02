@@ -37,7 +37,7 @@ const {$Message} = require('../../static/iview/base/index')
 export default {
   data () {
     return {
-      query: '熊猫',
+      query: '',
       imageList: [],
       actions: [{ name: '分享' }, { name: '收藏' }],
       selectedUrl: '',
